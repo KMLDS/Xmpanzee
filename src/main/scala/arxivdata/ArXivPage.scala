@@ -10,7 +10,7 @@ import scala.xml._
   resumption tokens.
 
   */
-class ArXivPage(arXivSet: Option[String] = None, dateFrom: Option[String] = None, dateUntil: Option[String] = None, resumptionToken: Option[None] = None) {
+class ArXivPage(arXivSet: Option[String] = None, dateFrom: Option[String] = None, dateUntil: Option[String] = None) {
 
 
   val arXivBaseURL = "http://export.arxiv.org/oai2"
@@ -25,7 +25,7 @@ class ArXivPage(arXivSet: Option[String] = None, dateFrom: Option[String] = None
       }
     }
     val baseList = List(("verb", downloadVerb), ("metadataPrefix", metaDataFormat))
-    prependOptional(resumptionToken, "resumptionToken", prependOptional(dateFrom, "from", prependOptional(dateUntil, "until", prependOptional(arXivSet, "set", baseList))))
+    prependOptional(dateFrom, "from", prependOptional(dateUntil, "until", prependOptional(arXivSet, "set", baseList)))
   }
 
   def getArXivXML(): scala.xml.Elem = {
