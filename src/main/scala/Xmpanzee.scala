@@ -1,9 +1,10 @@
 import xmpanzee.arxivdata._
 
+
 object Xmpanzee {
+
   def main(args: Array[String]) = {
     if (args(0) == "download") {
-
       val argList = args.toList.tail
       def argsToPairs(lst: List[String]): List[(String, String)] = {
         lst match {
@@ -13,9 +14,13 @@ object Xmpanzee {
         }
       }
 
+      var conn = DataFunctions.connInit("xmpanzee", "xmpanzee")
+
+
       val testPage = ArXivPage(argsToPairs(argList))
-      val testRecords = (testPage.text \ "ListRecords" \ "record").map(new ArXivRecord(_))
-      println(testRecords)
+      DataFunctions.listRecords(testPage).map(DataFunctions.recordToSQL(_)).foreach(DataFunctions.sqlInsert(conn, _))
+      DataFunctions.listRecords(testPage).foreach((x: ArXivRecord) => println(DataFunctions.recordToSQL(x)))
+      conn.close
     }
   }
 }
