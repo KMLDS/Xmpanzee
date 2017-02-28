@@ -14,12 +14,15 @@ object Xmpanzee {
         }
       }
 
-      var conn = DataFunctions.connInit("xmpanzee", "xmpanzee")
+      var conn = DataFunctions.connInit("xmpanzee", "xmpanzee") // put real values in simple config file and read in 
+
+      val firstPage = ArXivPage(argsToPairs(argList))
+      DataFunctions.processArXiv(Some(firstPage), conn)
+      //      println(testPage.code)
+      //      DataFunctions.listRecords(testPage).map(DataFunctions.recordToSQL(_)).foreach(DataFunctions.sqlInsert(conn, _))
+      //      DataFunctions.listRecords(testPage).foreach((x: ArXivRecord) => println(DataFunctions.recordToSQL(x)))
 
 
-      val testPage = ArXivPage(argsToPairs(argList))
-      DataFunctions.listRecords(testPage).map(DataFunctions.recordToSQL(_)).foreach(DataFunctions.sqlInsert(conn, _))
-      DataFunctions.listRecords(testPage).foreach((x: ArXivRecord) => println(DataFunctions.recordToSQL(x)))
       conn.close
     }
   }

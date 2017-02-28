@@ -1,12 +1,13 @@
+DROP TABLE IF EXISTS abstracts;
 CREATE TABLE abstracts (
-       id    	       VARCHAR(30)	PRIMARY KEY,
-       keynames	       VARCHAR(30)[],
-       forenames       VARCHAR(30)[],
+       id    	       TEXT		PRIMARY KEY,
+       keynames	       TEXT[],
+       forenames       TEXT[],
        title	       TEXT		NOT NULL,
-       categories      VARCHAR(30)[],
+       categories      TEXT[],
        comments	       TEXT		NOT NULL,
-       journalref      VARCHAR(100),
-       doi	       VARCHAR(100),
+       journalref      TEXT,
+       doi	       TEXT,
        license	       TEXT,
        abstract	       TEXT		NOT NULL
-)      
+);      
